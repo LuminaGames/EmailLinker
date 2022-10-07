@@ -1,0 +1,34 @@
+database:
+    enabled: false
+    host: ''
+    database: ''
+    username: ''
+    password: ''
+    port: '3306'
+
+smtp:
+    hostname: "host.com"
+    username: "username"
+    password: "p@$$w0rd"
+    port: 000
+    usessl: true
+    fromaddress: yourrmail@domain.com
+
+email-settings:
+    server-name: "Your Network"
+    subject: "This is your verification email for {servername}"
+    #Currently Messages are unable to be edited due to bugs.
+    #This feature will be added into newer versions of the plugin.
+
+
+messages:
+    prefix: "&7[&bEmailLinker&7] "
+    no_permission: "{prefix}&cYou do not have permission to execute this command."
+    player_only_command: "{prefix}&cThis command is only for players."
+    email_error: "{prefix}&cThere was an error sending email. Please contact server admins."
+    code_not_matched: "{prefix}&cThe verification code is invalid. Please try again."
+    verification_success: "{prefix}&aYour email was verified successfully."
+    email_send_success: "{prefix}&aWe have sent an email successfully."
+    already_pending_verification: "{prefix}&cYou already have a pending verification."
+    email_already_linked: "{prefix}&cYour account already has an associated email. Please use &f/email disconnect <Email> &cto delete it."
+

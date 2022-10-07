@@ -1,0 +1,8 @@
+name: EmailLinker
+version: '${project.version}'
+main: me.comphack.emaillinker.Emaillinker
+load: STARTUP
+authors: [COMPHACK]
+description: A plugin to link your player's email to your minecraft server
+commands:
+    email:
