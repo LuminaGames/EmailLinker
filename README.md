@@ -16,7 +16,7 @@
 <h2 align="center">Servers Using Email Linker</h2>
 
 
-# [bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
+# ![bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
 
 
 
