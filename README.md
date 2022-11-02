@@ -14,7 +14,7 @@
 * Customizable email messages with HTML formatting.
 
 <h2 align="center">Servers Using Email Linker</h2>
-# ![bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
+https://bstats.org/signatures/bukkit/Email%20Linker.svg
 
 
 
