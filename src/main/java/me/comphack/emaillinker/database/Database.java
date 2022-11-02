@@ -72,7 +72,6 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return false;
     }
 
@@ -90,5 +89,31 @@ public class Database {
         }
     }
 
+    public void disconnectEmail(UUID player) {
+        try {
+            String sql = "DELETE FROM emails WHERE uuid=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, player.toString());
+            ps.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkEmail(UUID player, String email) {
+        try{
+            String sql = "SELECT * FROM emails where uuid=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, player.toString());
+            ResultSet rs = ps.executeQuery();
+            if(rs.getString("email_address").equalsIgnoreCase(email)) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

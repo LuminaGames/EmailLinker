@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class HashingUtils {
 
-    private Utils utils = new Utils();
-    private UserCache cache = new UserCache(utils.getPlugin(), "cache.yml");
+    private final Utils utils = new Utils();
+    private final UserCache cache = new UserCache(utils.getPlugin(), "cache.yml");
 
 
     public String hashVerificationCode(String code) {
@@ -59,9 +59,11 @@ public class HashingUtils {
     }
 
     public boolean hasPendingVerification(UUID player) {
-        if(cache.getYaml().contains(player.toString())) {
+        cache.reloadCache();
+        if(cache.getYaml().contains(player.toString() + ".username")) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }

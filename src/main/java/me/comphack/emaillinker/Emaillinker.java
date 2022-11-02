@@ -1,10 +1,13 @@
 package me.comphack.emaillinker;
 
-import me.comphack.emaillinker.commands.EmailCommand;
+import me.comphack.emaillinker.commands.CommandManager;
 import me.comphack.emaillinker.database.Database;
+import me.comphack.emaillinker.utils.Metrics;
 import me.comphack.emaillinker.utils.UserCache;
 import me.comphack.emaillinker.utils.Utils;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public final class Emaillinker extends JavaPlugin {
 
@@ -25,21 +28,39 @@ public final class Emaillinker extends JavaPlugin {
         database.setupJDBC();
         database.PluginDatabase();
         utils.sendPluginLog("info", "Loaded Database");
-        
+        int pluginId = 16771;
+        if(getConfig().getBoolean("enable-bstats")) {
+            Metrics metrics = new Metrics(this, pluginId);
+            utils.sendPluginLog("info", "Loaded bStats");
+        }
+
+        startupMessage();
     }
 
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        File cacheFile = new File(getDataFolder() + "/cache.yml");
+        if(cacheFile.exists()) {
+            cacheFile.delete();
+            utils.sendPluginLog("info", "Cleared the cache files. Players with pending verification should use the email command again.");
+        }
+
+
     }
 
     public void registerCommands() {
-        getCommand("email").setExecutor(new EmailCommand());
+        getCommand("email").setExecutor(new CommandManager());
+    }
+
+    public void startupMessage() {
+        getLogger().info("░█▀▀░█▄█░█▀█░▀█▀░█░░░░░█░░░▀█▀░█▀█░█░█░█▀▀░█▀▄");
+        getLogger().info("░█▀▀░█░█░█▀█░░█░░█░░░░░█░░░░█░░█░█░█▀▄░█▀▀░█▀▄");
+        getLogger().info("░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀");
+
     }
 
     public void registerEvents() {
-
     }
 
 }

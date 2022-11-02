@@ -14,12 +14,20 @@ smtp:
     usessl: true
     fromaddress: yourrmail@domain.com
 
+settings:
+    #Allows users to be able to disconnect their emails
+    allow_disconnect_email: true
+    #Send's a message if the use has not verified their email.
+    send_not_verified_message_on_join: true
+    no_verified_message:
+        - "{prefix}&fWe have sent an verification to your given email. Please use &b/email code <code> &fto verify ."
+        - "{prefix}&fIf you have forgotten the email please use &bg/email resend <EmailAddress>"
+
 email-settings:
     server-name: "Your Network"
     subject: "This is your verification email for {servername}"
     #Currently Messages are unable to be edited due to bugs.
     #This feature will be added into newer versions of the plugin.
-
 
 messages:
     prefix: "&7[&bEmailLinker&7] "
@@ -27,8 +35,32 @@ messages:
     player_only_command: "{prefix}&cThis command is only for players."
     email_error: "{prefix}&cThere was an error sending email. Please contact server admins."
     code_not_matched: "{prefix}&cThe verification code is invalid. Please try again."
-    verification_success: "{prefix}&aYour email was verified successfully."
+    no_code_provided: "{prefix}&cPlease put the verification code."
+    verification_success: "{prefix}&aYour email was verified & connected successfully."
     email_send_success: "{prefix}&aWe have sent an email successfully."
     already_pending_verification: "{prefix}&cYou already have a pending verification."
+    no_email_provided: "{prefix}&fPlease specify a email"
     email_already_linked: "{prefix}&cYour account already has an associated email. Please use &f/email disconnect <Email> &cto delete it."
+    no_pending_verification: "{prefix}&fYou currently do not have pending verification."
+    no_email_linked: "{prefix}&fThere is no email associated with your account."
+    email_disconnect_success: "{prefix}&aEmail successfully disconnected."
+    disconnect_success: "{prefix}&aEmail disconnected successfully."
+    incorrect_email: "{prefix}&fThe email you provided is not associated with your account."
+    internal_plugin_error: "{prefix}&cAn internal plugin error occurred please contact the developer"
+    email_linked_not_matched: "{prefix}&cThe email you provided is not linked to your account. Please try again."
 
+    help-1:
+       - "&b&lEmail Linker &7Plugin Help"
+       - "&b&lCommands:"
+       - ""
+       - "&b/email link <EmailAddress> - &fLink your email address to the server"
+       - "&b/email code <Code> - &fEnter the verification code sent by the server."
+       - "&b/email resend <EmailAddress> - &fResend the verification email to a new email address."
+       - "&b/email disconnect <ConnectedEmail> - &fDisconnect your connected email from the server."
+       - "&b/email admin - &fTo view administrative commands for Email Linker."
+    admin-help-1:
+       - "&c&lAdministrator Commands - &b&lEmail Linker"
+       - "&b/email reload - &fReload the Plugin Configuration."
+       - "&fmore commands coming soon in further updates."
+
+enable-bstats: true
