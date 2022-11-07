@@ -18,5 +18,5 @@
 
 # ![bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
 
-
+<p align=center>Email Linker is a product of <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
 
