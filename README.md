@@ -18,5 +18,6 @@
 
 # ![bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
 
+© 2022 COMPHACK (Vedant)
 <p align=center>Email Linker is a product of <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
 
