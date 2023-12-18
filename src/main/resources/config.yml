@@ -22,12 +22,15 @@ settings:
     no_verified_message:
         - "{prefix}&fWe have sent an verification to your given email. Please use &b/email code <code> &fto verify ."
         - "{prefix}&fIf you have forgotten the email please use &bg/email resend <EmailAddress>"
+    #This sound will be played when a player link's his email address.
+    #Sounds Only supported till game version 1.8
+    link_sound:
 
 email-settings:
     server-name: "Your Network"
     subject: "This is your verification email for {servername}"
-    #Currently Messages are unable to be edited due to bugs.
-    #This feature will be added into newer versions of the plugin.
+    #HTML is supported. If you have custom email templates you can use them here.
+    body: "<h1> Hey, {player} your verification code is {code}</h1>"
 
 messages:
     prefix: "&7[&bEmailLinker&7] "
@@ -61,6 +64,6 @@ messages:
     admin-help-1:
        - "&c&lAdministrator Commands - &b&lEmail Linker"
        - "&b/email reload - &fReload the Plugin Configuration."
-       - "&fmore commands coming soon in further updates."
+       - "&fMore commands coming soon in further updates."
 
 enable-bstats: true

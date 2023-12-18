@@ -2,6 +2,7 @@ package me.comphack.emaillinker.commands;
 
 import me.comphack.emaillinker.commands.subcommands.*;
 import me.comphack.emaillinker.utils.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,15 +41,13 @@ public class CommandManager implements CommandExecutor {
                 }
             } else if (args.length == 0) {
                 p.sendMessage("");
-                p.sendMessage(utils.color("&b&lEmail Linker &7developed by &b&lCOMPHACK"));
-                p.sendMessage(utils.color("&b&lPlugin Version: &f" + utils.getPluginVersion()));
-                p.sendMessage(utils.color("&bUse /emaillinker help for using any subcommands."));
+                p.sendMessage(utils.color(p, "&b&lEmail Linker &7developed by &b&lCOMPHACK"));
+                p.sendMessage(utils.color(p, "&b&lPlugin Version: &f" + utils.getPluginVersion()));
+                p.sendMessage(utils.color(p, "&bUse /emaillinker help for using any subcommands."));
                 p.sendMessage("");
             }
         } else {
-            sender.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.player_only_command")
-                    .replace("{prefix}", utils.color(utils.getPlugin().getConfig().getString("messages.prefix"
-                    )))));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', utils.getPlugin().getConfig().getString("messages.player_only_command")));
         }
 
         return true;

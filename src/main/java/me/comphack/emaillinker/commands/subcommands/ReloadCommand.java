@@ -32,10 +32,10 @@ public class ReloadCommand extends SubCommand {
             Utils utils = new Utils();
             UserCache cache = new UserCache(JavaPlugin.getPlugin(Emaillinker.class), "cache.yml");
             cache.reloadCache();
-            player.sendMessage(utils.color("&aReloaded cache.yml"));
+            player.sendMessage(utils.color(player, "&aReloaded cache.yml"));
             utils.getPlugin().reloadConfig();
-            player.sendMessage(utils.color("&aReloaded config.yml"));
-            player.sendMessage(utils.color("&cNote: Some changes requires a server restart."));
+            player.sendMessage(utils.color(player, "&aReloaded config.yml"));
+            player.sendMessage(utils.color(player, "&cNote: Some changes requires a server restart."));
         }
     }
 }

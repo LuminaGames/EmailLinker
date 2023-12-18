@@ -1,8 +1,11 @@
 package me.comphack.emaillinker.utils;
 
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.comphack.emaillinker.Emaillinker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.charset.StandardCharsets;
@@ -20,11 +23,14 @@ public class Utils {
                 }
         }
 
-        public String color(String s) {
-                if (s == null) return "";
-                return ChatColor.translateAlternateColorCodes('&', s);
+        public String color(Player player, String s) {
+                try {
+                        Class.forName("me.clip.placeholderapi.PlaceholderAPI");
+                        return PlaceholderAPI.setPlaceholders(player, IridiumColorAPI.process(s));
+                } catch (ClassNotFoundException e) {
+                        return IridiumColorAPI.process(s);
+                }
         }
-
 
         public Emaillinker getPlugin() {
                 Emaillinker emaillinker = JavaPlugin.getPlugin(Emaillinker.class);
@@ -36,8 +42,5 @@ public class Utils {
                 return ver;
         }
 
-        public void sendEmailCode(String email) {
-
-        }
 
 }
