@@ -1,6 +1,7 @@
 package me.comphack.emaillinker.commands.subcommands;
 
 import me.comphack.emaillinker.Emaillinker;
+import me.comphack.emaillinker.api.events.EmailResendEvent;
 import me.comphack.emaillinker.commands.SubCommand;
 import me.comphack.emaillinker.database.Database;
 import me.comphack.emaillinker.utils.HashingUtils;
@@ -50,7 +51,10 @@ public class ResendCommand extends SubCommand {
         int port = utils.getPlugin().getConfig().getInt("smtp.port");
         String subject = utils.getPlugin().getConfig().getString("email-settings.subject")
                 .replace("{servername}", utils.getPlugin().getConfig().getString("email-settings.server-name"));
-        String message = "<h1>Your Verification Code Is: " + verificationCode + "</h1>";
+        String message =  utils.getPlugin().getConfig().getString("email-settings.body")
+                .replace("{code}", verificationCode)
+                .replace("{player}", player.getName())
+                .replace("{servername}", utils.getPlugin().getConfig().getString("email-settings.servername"));
         UUID playerUUID = player.getUniqueId();
         String username = player.getName();
 
@@ -76,9 +80,9 @@ public class ResendCommand extends SubCommand {
                             cache.getYaml().set(playerUUID.toString() + ".username", username);
                             cache.getYaml().set(playerUUID.toString() + ".hashedCode", hashingUtils.hashVerificationCode(verificationCode));
                             cache.getYaml().set(playerUUID.toString() + ".emailAddress", args[1]);
+                            Bukkit.getPluginManager().callEvent(new EmailResendEvent(player, args[1]));
                             cache.save();
-                            player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_send_success")
-                                    .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                            player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_send_success")));
                         } catch (EmailException e) {
                             e.printStackTrace();
                         }
@@ -86,14 +90,12 @@ public class ResendCommand extends SubCommand {
                     thread.start();
                     } else {
                     // has already a pending verification
-                    player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_already_linked")
-                            .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                    player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_already_linked")));
                 }
             }
         } else {
             // no permission
-            player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.no_permission")
-                    .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+            player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.no_permission")));
         }
     }
 }

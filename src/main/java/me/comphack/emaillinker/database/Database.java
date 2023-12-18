@@ -25,6 +25,11 @@ public class Database {
             Url = "jdbc:mysql://" + host + ":" + port + "/" + database;
             Bukkit.getLogger().info("Using Storage Method [MySQL]");
         } else {
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException e) {
+                Bukkit.getLogger().severe("SQLite Driver not found.");
+            }
             Bukkit.getLogger().info("Using Storage Method [SQLite]");
             File database = new File(Bukkit.getServer().getPluginManager().getPlugin("EmailLinker").getDataFolder(), "database.db");
             if (!database.exists()) {
@@ -41,7 +46,6 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
     }
 

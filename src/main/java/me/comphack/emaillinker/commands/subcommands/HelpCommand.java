@@ -28,7 +28,7 @@ public class HelpCommand extends SubCommand {
     @Override
     public void perform(Player player, String[] args) throws SQLException {
         for (String string : utils.getPlugin().getConfig().getStringList("messages.help-1")) {
-            player.sendMessage(utils.color(string));
+            player.sendMessage(utils.color(player, string));
         }
     }
 }

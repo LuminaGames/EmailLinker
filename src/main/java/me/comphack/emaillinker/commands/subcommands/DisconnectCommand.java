@@ -37,22 +37,17 @@ public class DisconnectCommand extends SubCommand {
         UUID uuid = player.getUniqueId();
         if(player.hasPermission("emaillinker.command.code") || player.hasPermission("emaillinker.command.*")) {
             if(args.length <= 1) {
-                player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.no_email_provided")
-                        .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.no_email_provided")));
             } else {
                 if (database.hasLinkedEmail(uuid)) {
                     if (database.checkEmail(uuid, args[1])) {
                         database.disconnectEmail(uuid);
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.disconnect_success")
-                                .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.disconnect_success")));
                     } else {
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.no_email_linked")
-                                .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.no_email_linked")));
                     }
                 } else {
-                    // not linked email
-                    player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.no_email_linked")
-                            .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                    player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.no_email_linked")));
                 }
             }
         }

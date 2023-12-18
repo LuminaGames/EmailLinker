@@ -38,18 +38,19 @@ public class EmailCommand implements CommandExecutor {
         String toAddress = args[0];
         String subject = utils.getPlugin().getConfig().getString("email-settings.subject")
                 .replace("{servername}", utils.getPlugin().getConfig().getString("email-settings.server-name"));
-        String message = "<h1>Your Verification Code Is: " + otp + "</h1>";
 
         Player player = (Player) sender;
+        String message =  utils.getPlugin().getConfig().getString("email-settings.body")
+                .replace("{code}", otp)
+                .replace("{player}", player.getName())
+                .replace("{servername}", utils.getPlugin().getConfig().getString("email-settings.servername"));
         UUID uuid = player.getUniqueId();
         String username = player.getName();
         if (sender instanceof ConsoleCommandSender) {
-            sender.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.player_only_command")
-                    .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+            sender.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.player_only_command")));
         } else if (!player.hasPermission("emaillinker.command.email")) {
 
-            player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.no_permission")
-                    .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+            player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.no_permission")));
             return true;
         }
 
@@ -74,7 +75,7 @@ public class EmailCommand implements CommandExecutor {
                         email.setHtmlMsg(message);
                         email.addTo(toAddress);
                         email.send();
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_send_success")));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_send_success")));
 
                         cache.getYaml().set(uuid.toString(), uuid.toString());
                         cache.getYaml().set(uuid.toString() + ".username", username);
@@ -82,9 +83,7 @@ public class EmailCommand implements CommandExecutor {
                         cache.getYaml().set(uuid.toString() + ".emailAddress", args[1]);
                         cache.save();
                     } catch (Exception ex) {
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_error")
-                                .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                                )));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_error")));
                         ex.printStackTrace();
                     }
             }
@@ -96,13 +95,9 @@ public class EmailCommand implements CommandExecutor {
                     //Check if the given code matches the SHA Hash on the system.
                     if (hashingUtils.verifyPasswordHash(args[1], uuid)) {
                         database.setEmail(username, uuid, cache.getYaml().getString(uuid.toString() + ".emailAddress"));
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.verification_success")
-                                .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                                )));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.verification_success")));
                     } else {
-                        player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.code_not_matched")
-                                .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                                )));
+                        player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.code_not_matched")));
                     }
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
@@ -122,30 +117,23 @@ public class EmailCommand implements CommandExecutor {
                     email.setHtmlMsg(message);
                     email.addTo(toAddress);
                     email.send();
-                    player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_send_success")
-                            .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix"))));
+                    player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_send_success")));
                     cache.getYaml().set(uuid.toString(), uuid.toString());
                     cache.getYaml().set(uuid.toString() + ".username", username);
                     cache.getYaml().set(uuid.toString() + ".hashedCode", hashingUtils.hashVerificationCode(otp));
                     cache.getYaml().set(uuid.toString() + ".emailAddress", args[0]);
                     cache.save();
                 } catch (Exception ex) {
-                    player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_error")
-                            .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                            )));
+                    player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_error")));
                     ex.printStackTrace();
                 }
 
             } else {
-                player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.already_pending_verification")
-                        .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                        )));
+                player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.already_pending_verification")));
             }
             return false;
         } else {
-            player.sendMessage(utils.color(utils.getPlugin().getConfig().getString("messages.email_already_linked")
-                    .replace("{prefix}", utils.getPlugin().getConfig().getString("messages.prefix")
-                    )));
+            player.sendMessage(utils.color(player, utils.getPlugin().getConfig().getString("messages.email_already_linked")));
         }
         return false;
     }
