@@ -18,6 +18,6 @@
 
 # ![bStats](https://bstats.org/signatures/bukkit/Email%20Linker.svg)
 
-© 2022 COMPHACK (Vedant)
-<p align=center>Email Linker is a product of <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
+© 2023 Lumina Games
+<p align=center>Email Linker is a product of <a href="https://discord.gg/e97HsSX89j">Lumina Games</a></p>
 
